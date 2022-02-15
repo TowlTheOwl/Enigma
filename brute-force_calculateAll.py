@@ -1,3 +1,7 @@
+import os
+
+clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+
 def enigmaI(i, ii, iii):
   I = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
   II = "AJDKSIRUXBLHWTMCQGZNPYFVOE"
@@ -85,10 +89,8 @@ for ref in range(len(reflectors)):
                                 else:
                                     out += char
                             completed += 1
-                            percent_completed = round(completed/LENGTH, 4)*100
-                            if percent_completed in percentage_display:
-                              print(percent_completed)
-                              percentage_display.remove(percent_completed)
+                            if completed % 1000 == 0:
+                              print(f"{int(completed/1000)}/{int(LENGTH/1000)} | {round((completed/LENGTH)*100, 2)} %")
                             if out == word2:
                                 found_combs.append(f"Reflector: {ref_names[ref]}, rotor1: {r1 + 1}, rotor2: {r2 + 1}, rotor3: {r3+1}, r1 start pos: {i}, r2 start pos: {ii}, r3 start pos: {iii}")
                                 found_combinations += 1
