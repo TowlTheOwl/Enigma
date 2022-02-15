@@ -49,6 +49,11 @@ used_pb = []
 
 LENGTH = 6591000
 found_combinations = 0
+completed = 0
+found_combs = []
+percentage_display = []
+for i in range(0, 1001):
+  percentage_display.append(i/10)
 
 for ref in range(len(reflectors)):
     for i in alphabet:
@@ -79,8 +84,14 @@ for ref in range(len(reflectors)):
                                     out += char
                                 else:
                                     out += char
+                            completed += 1
+                            percent_completed = round(completed/LENGTH, 4)*100
+                            if percent_completed in percentage_display:
+                              print(percent_completed)
+                              percentage_display.remove(percent_completed)
                             if out == word2:
-                                print(f"Reflector: {ref_names[ref]}, rotor1: {r1 + 1}, rotor2: {r2 + 1}, rotor3: {r3+1}, r1 start pos: {i}, r2 start pos: {ii}, r3 start pos: {iii}")
+                                found_combs.append(f"Reflector: {ref_names[ref]}, rotor1: {r1 + 1}, rotor2: {r2 + 1}, rotor3: {r3+1}, r1 start pos: {i}, r2 start pos: {ii}, r3 start pos: {iii}")
                                 found_combinations += 1
 print(f"TOTAL COMBINATIONS: {found_combinations}")
+print(found_combs)
 print("COMPLETED!")
