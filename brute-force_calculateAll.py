@@ -95,5 +95,7 @@ for ref in range(len(reflectors)):
                                 found_combs.append(f"Reflector: {ref_names[ref]}, rotor1: {r1 + 1}, rotor2: {r2 + 1}, rotor3: {r3+1}, r1 start pos: {i}, r2 start pos: {ii}, r3 start pos: {iii}")
                                 found_combinations += 1
 print(f"TOTAL COMBINATIONS: {found_combinations}")
-print(found_combs)
+
+for setting in found_combs:
+  print(setting)
 print("COMPLETED!")
