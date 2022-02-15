@@ -24,10 +24,7 @@ def pass_through(char, rotor):
 def back_through(char, rotor):
   return alphabet[rotor.index(char)]
 
-
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-
 
 plugboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 used_pb = []
@@ -71,9 +68,15 @@ while refType not in ["1", "2", "3"]:
   refType = input("Invalid. Please choose a reflector type: ")
 refType = int(refType) -1
 
-r1 = int(input("Please choose the first rotor: "))
+r1 = input("Please choose the first rotor: ")
+while r1 not in [1, 2, 3, 4, 5]:
+  r1 = input("Please choose again: ")
 r2 = int(input("Please choose the second rotor: "))
+while r2 not in [1, 2, 3, 4, 5]:
+  r2 = input("Please choose again: ")
 r3 = int(input("Please choose the third rotor: "))
+while r3 not in [1, 2, 3, 4, 5]:
+  r3 = input("Please choose again: ")
 
 rotor1, rotor2, rotor3, reflector = enigmaI(r1, r2, r3, refType)
 
