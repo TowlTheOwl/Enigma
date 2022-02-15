@@ -109,16 +109,28 @@ sentence = input("> ")
 
 sentence = sentence.upper()
 
-
+rotor1_rotation = 0
+rotor2_rotation = 0
 
 rotor_names = ["rotor1", "rotor2", "rotor3", "reflector"]
 rotor_names2 = ["rotor3", "rotor2", "rotor1"]
 
 for char in sentence:
   if char in alphabet:
+    print("")
     print("Char: " + char)
     char = plugboard[alphabet.index(char)]
     rotor1 = rotate_rotor(rotor1)
+    rotor1_rotation += 1
+    if rotor1_rotation == 26:
+      print("ROTATING ROTOR 2")
+      rotor1_rotation = 0
+      rotor2 = rotate_rotor(rotor2)
+      rotor2_rotation += 1
+    if rotor2_rotation == 26:
+      print("ROTATING ROTOR 3")
+      rotor2_rotation = 0
+      rotor3 = rotate_rotor(rotor3)
     rotor_sequence1 = [rotor1, rotor2, rotor3, reflector]
     rotor_sequence2 = [rotor3, rotor2, rotor1]
     for i in range(len(rotor_sequence1)):
