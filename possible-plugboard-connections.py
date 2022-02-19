@@ -1,6 +1,4 @@
-import numpy as np
-from collections import Counter
-import time
+from itertools import permutations
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -11,38 +9,47 @@ possible_pairs = [(a, b) for idx, a in enumerate(alphabet) for b in alphabet[idx
 
 total_connections = [[pair] for pair in possible_pairs]
 
-s = 0
+currentStep = total_connections.copy()
+iter = 0
 
-for i in range(len(possible_pairs)):
-  connection2 = []
-  pair = possible_pairs[i]
+num_conns = len(total_connections)
 
-  if len(possible_pairs) - i >= 2:
-    connection2 = [[pair, possible_pairs[i:][b]] for b in range(len(possible_pairs[i:]))]
-    #print(connection2)
-    
+for num_conn in range(2, 10):
+    num_conns = 0
+    lastStep = currentStep
+    currentStep = []
+    for i in lastStep:
+        used = [y for a in i for y in a]
+        
+        available = [(y, z) for y, z in possible_pairs if (y not in used) and (z not in used)]
+        perms = permutations(range(num_conn))
+        for conn in available:
+            conns = i.copy()
+            conns.append(conn)
+            for perm in perms:
+              a_list = [conns[i] for i in perm]
+              if a_list in currentStep:
+                break
+            else:
+              num_conns += 1
+              currentStep.append(conns)
+        #print(conns)
 
-  # if len(possible_pairs) - i >= 3:
-  #   connection3 = [[pair, possible_pairs[i:][b], possible_pairs[b+1:][c]] for b in range(len(possible_pairs[i:])) for c in range(len(possible_pairs[b+1:]))]
-  #   connection3 = np.array(connection3)
-  temp = connection2.copy()
-  temp2 = []
-  delete_list = []
-  for i in range(len(temp)):
-    item = temp[i]
-    
-    used = [letter for tup in item for letter in tup]
-    unique, counts = np.unique(used, return_counts=True)
-    if max(counts) == 1:
-      temp2.append(temp[i])
-    
-  connection2 = temp2.copy()
-  
-  for _ in range(len(connection2)):
-    s += 1
-    #print(connection2[_])
-    #time.sleep(10)
-    
-  
+    #total_connections.extend(currentStep)
+    with open('combinations.txt', 'a') as f:
+      for line in currentStep:
+        f.write(str(line) + '\n')
 
-print(s)
+    x = 0
+    # for conn in currentStep:
+    #   print(conn, x)
+    #   perms = permutations(range(2))
+    #   for perm in perms:
+    #     a_list = [conn[i] for i in perm]
+    #     if a_list in currentStep:
+    #       x += 1
+    # print(x)
+    print(num_conn, num_conns)
+
+
+#print(len(total_connections))
