@@ -17,6 +17,7 @@ num_conns = len(total_connections)
 print(1, num_conns)
 
 for num_conn in range(2, 10):
+    start = time.perf_counter()
     num_conns = 0
     lastStep = currentStep.copy()
     currentStep = []
@@ -36,10 +37,10 @@ for num_conn in range(2, 10):
                 num_conns += 1
                 currentStep.append(conns)
 
-    with open('combinations.txt', 'a') as f:
-        for line in currentStep:
-            f.write(str(line) + '\n')
-
-    print(num_conn, num_conns)
+    # with open('combinations.txt', 'a') as f:
+    #     for line in currentStep:
+    #         f.write(str(line) + '\n')
+    end = time.perf_counter()
+    print(num_conn, num_conns, str(end-start))
 
 # print(len(total_connections))
